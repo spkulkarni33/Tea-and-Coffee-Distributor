@@ -1,4 +1,4 @@
-# Tea-and-Coffee-Distributor
+# Tea and Coffee Distributor
 User signup: 
 Register a new user to the system. 
 o	Check the new username or email address if it’s already registered to the system using AJAX. 
