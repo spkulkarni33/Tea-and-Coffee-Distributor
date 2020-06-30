@@ -4,7 +4,7 @@ Register a new user to the system.
 o	Check the new username or email address if it’s already registered to the system using AJAX. 
 o	Form validation: Check if all mandatory fields are filled out. (JQuery)
 o	Check if password is strong enough. Define the rules of having a strong password. (JQuery). User passwords should be hashed and hashed version of passwords should be stored in the database.
-##	User login
+##	User login: User should be able to login to the system.
 ##	List available products/services in the system. User is able to filter the results based on at least one criterion (i.e. category). Also, able to “Search” for a specific item.  Search and filtering are integrated together.
 ##	Paging functionality for listing products/services. Paging incorporated with filtering and search functions as well.
 ##	Add item(s) to the cart and checkout. For the online shopping sites, pricing will be included but payment functionality doesn’t need to be implemented. However, you will keep track of inventory. For websites where a shopping cart does not exist, you can implement Wish list or Favorites and save those listings.
