@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+	<style>
+		input,
+	textarea {
+	  border: 1px solid #eeeeee;
+	  box-sizing: border-box;
+	  margin: 0;
+	  outline: none;
+	  padding: 10px;
+	}
+	
+	input[type="button"] {
+	  -webkit-appearance: button;
+	  cursor: pointer;
+	}
+	
+	input::-webkit-outer-spin-button,
+	input::-webkit-inner-spin-button {
+	  -webkit-appearance: none;
+	}
+	
+	.input-group {
+	  clear: both;
+	  margin: 15px 0;
+	  position: relative;
+	}
+	
+	.input-group input[type='button'] {
+	  background-color: #eeeeee;
+	  min-width: 38px;
+	  width: auto;
+	  transition: all 300ms ease;
+	}
+	
+	.input-group .button-minus,
+	.input-group .button-plus {
+	  font-weight: bold;
+	  height: 38px;
+	  padding: 0;
+	  width: 38px;
+	  position: relative;
+	}
+	
+	.input-group .quantity-field {
+	  position: relative;
+	  height: 38px;
+	  left: -6px;
+	  text-align: center;
+	  width: 62px;
+	  display: inline-block;
+	  font-size: 13px;
+	  margin: 0 0 5px;
+	  resize: vertical;
+	}
+	
+	.button-plus {
+	  left: -13px;
+	}
+	
+	input[type="number"] {
+	  -moz-appearance: textfield;
+	  -webkit-appearance: none;
+	}
+	
+		</style>
+  <head>
+    <title>Cart | BrewedAromas</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Great+Vibes" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
+    <link rel="stylesheet" href="css/animate.css">
+	
+	
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="css/magnific-popup.css">
+
+    <link rel="stylesheet" href="css/aos.css">
+
+    <link rel="stylesheet" href="css/ionicons.min.css">
+
+    <link rel="stylesheet" href="css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="css/jquery.timepicker.css">
+
+    
+    <link rel="stylesheet" href="css/flaticon.css">
+    <link rel="stylesheet" href="css/icomoon.css">
+    <link rel="stylesheet" href="css/style.css">
+  </head>
+  <body>
+	<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+	    <div class="container">
+	      <a class="navbar-brand" href="/home">BREWED<small>AROMAS</small></a>
+	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+	        <span class="oi oi-menu"></span> Menu
+	      </button>
+	      <div class="collapse navbar-collapse" id="ftco-nav">
+	        <ul class="navbar-nav ml-auto">
+            <li class="nav-item"><a href="/home" class="nav-link">Home</a></li>
+	          <li class="nav-item"><a href="/tea?pagenum=1" class="nav-link">Tea</a></li>
+			  <li class="nav-item"><a href="/coffee?pagenum=1" class="nav-link">Coffee</a></li>			  
+              <li class="nav-item"><a href="/contact" class="nav-link">Contact</a></li>
+              <% if(user.firstname) { %>
+				<li class="nav-item"><a href="#" class="nav-link">Welcome, <%= user.firstname %></a></li>	
+				<li class="nav-item"><a href="/logout" class="nav-link">Logout</a></li>
+					<li class="nav-item cart"><a href="/cart" class="nav-link"><span class="icon icon-shopping_cart"></span><span class="bag d-flex justify-content-center align-items-center"><small><%= user.cart_no %></small></span></a></li>
+					
+					  <% } else { %>
+				<li class="nav-item"><a href="/loginpage" class="nav-link">Login</a></li>
+					<li class="nav-item cart"><a href="/cart" class="nav-link"><span class="icon icon-shopping_cart"></span><span class="bag d-flex justify-content-center align-items-center"><small>0</small></span></a></li>
+		
+					<% } %>
+
+		</ul>
+	      </div>
+		  </div>
+	  </nav>
+    <!-- END nav -->
+		
+		<section class="ftco-section ftco-cart">
+			<div class="container">
+				<div class="row">
+    			<div class="col-md-12 ftco-animate">
+    				<div class="cart-list">
+	    				<table class="table" id="mytable">
+						    <thead class="thead-primary">
+						      <tr class="text-center">
+						        <th>&nbsp;</th>
+						        <th>&nbsp;</th>
+						        <th>Product</th>
+						        <th>Price</th>
+						        <th>Quantity</th>
+						        <th>Total</th>
+						      </tr>
+						    </thead>
+						    <tbody>
+								<% if(cart_items) { %>
+                                <% cart_items.product.forEach(function(cart){ %>
+						      <tr class="text-center">
+							<td>
+							  	<form id="form1" action="/removeitem" method="POST">
+								  <input type="hidden" name="b_id" value="<%= cart._id %>">
+								  <input type="hidden" name="stock" value="<%= cart.stock %>">
+						        <input type="submit" value="x"></form>
+							</td>
+						        
+						        <td class="image-prod"><div class="img" style="background-image:url(images/<%= cart.image %>)"></div></td>
+						        
+						        <td class="product-name">
+						        	<h3><%= cart.bname %></h3>
+						        	<p><%= cart.description %></p>
+						        </td>
+						        
+						        <td class="price" id="teaprice">$<%= cart.price %></td>
+						        
+						        <td class="quantity">
+                                    <div class="input-group mb-3">
+                                		<div class="input-group">
+											<form action="" method="POST">
+												<input type="hidden" name="b_id" value="<%= cart._id %>">
+												
+												<input type="submit" value="-" class="button-minus" data-field="quantity" formaction="/editcart?q=sub&id=<%= cart._id %>">
+												<input type="number" step="1" max="" value="<%= cart.quantity %>" id="quant" name="quantity" class="quantity-field">
+												<input type="submit" value="+" class="button-plus" data-field="quantity" formaction="/editcart?q=add&id=<%= cart._id %>">
+											</form>
+										</div>
+									</div>
+                              	</td>
+						        
+						        <td class="total">$<%= cart.price * cart.quantity %></td>
+						      </tr><!-- END TR-->
+							  <% }); %>
+							  <% } else{ %>
+								<tr class="text-center">
+									<td class="product-name">
+										<h3>You do not have any items in the cart</h3>
+										<p><a href="/home" class="btn btn-primary">Shop More</a></p>
+									</td>
+								</tr>
+								<% } %>
+						    </tbody>
+						  </table>
+					  </div>
+    			</div>
+    		</div>
+    		<div class="row justify-content-end">
+    			<div class="col col-lg-3 col-md-6 mt-5 cart-wrap ftco-animate">
+    				<div class="cart-total mb-3">
+    					<h3>Cart Totals</h3>
+    					<p class="d-flex">
+    						<span>Subtotal</span>
+    						<span>$<%= cart_items.total_price %></span>
+    					</p>
+    					
+						<% if(parseFloat(cart_items.total_price) > parseFloat(25)) { %>
+							<p class="d-flex">
+								<span>Delivery</span>
+							<span>$0.00</span>
+							</p>
+							<hr>
+							<p class="d-flex total-price">
+								<span>Total</span>
+								<span>$<%= cart_items.total_price %></span>
+							</p>
+						
+						<% } else if(parseFloat(cart_items.total_price) < parseFloat(25) && parseFloat(cart_items.total_price) > parseFloat(0)) { %>
+
+							<p class="d-flex">
+								<span>Delivery</span>
+							<span>$5.00</span>
+							</p>
+							<hr>
+							<p class="d-flex total-price">
+								<span>Total</span>
+								<span>$<%= parseFloat(cart_items.total_price)+parseFloat(5) %></span>
+							</p>
+
+						<% } else { %>
+
+							<p class="d-flex">
+								<span>Delivery</span>
+							<span>$0.00</span>
+							</p>
+							<hr>
+							<p class="d-flex total-price">
+								<span>Total</span>
+								<span>$<%= cart_items.total_price %></span>
+							</p>
+
+						<% } %>
+
+    				</div>
+    				<p class="text-center"><a href="/checkout" class="btn btn-primary py-3 px-4">Proceed to Checkout</a></p>
+    			</div>
+    		</div>
+			</div>
+		</section>
+    
+  
+
+  <!-- loader -->
+  <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
+
+
+  <script src="js/jquery.min.js"></script>
+  <script src="js/jquery-migrate-3.0.1.min.js"></script>
+  <script src="js/popper.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/jquery.easing.1.3.js"></script>
+  <script src="js/jquery.waypoints.min.js"></script>
+  <script src="js/jquery.stellar.min.js"></script>
+  <script src="js/owl.carousel.min.js"></script>
+  <script src="js/jquery.magnific-popup.min.js"></script>
+  <script src="js/aos.js"></script>
+  <script src="js/jquery.animateNumber.min.js"></script>
+  <script src="js/bootstrap-datepicker.js"></script>
+  <script src="js/jquery.timepicker.min.js"></script>
+  <script src="js/scrollax.min.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    $(document).ready(function(){
+    
+    $('.button-plus').click(function(){
+        var quantityField = $(this).prev();
+        quantityField.val(parseInt(quantityField.val(), 10) + 1);
+    
+    });
+
+    $('.button-minus').click(function(){
+        var quantityField = $(this).next();
+        if (quantityField.val() != 0) {
+            quantityField.val(parseInt(quantityField.val(), 10) - 1);
+        }
+    });
+         
+    });
+    </script>
+    
+  </body>
+</html>

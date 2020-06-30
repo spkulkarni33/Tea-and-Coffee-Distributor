@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>SignUp | Brewed Aromas</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->	
+	<link rel="icon" type="image/png" href="images/favicon.jfif"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="fonts/iconic/css/material-design-iconic-font.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/animsition/css/animsition.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="css/loginutil.css">
+	<link rel="stylesheet" type="text/css" href="css/loginmain.css">
+<!--===============================================================================================-->
+<style>
+
+.ok {
+	background: #cfc;
+	border: 2px solid #9c9;
+    padding: 0px 2px;
+}
+
+.error {
+	background: #fcc;
+	border: 2px solid #c99;
+    padding: 0px 2px;
+}
+
+.short{
+	font-weight:bold;
+	color:#FF0000;
+	font-size:larger;
+}
+
+.weak{
+	font-weight:bold;
+	color:orange;
+	font-size:larger;
+}
+
+.good{
+	font-weight:bold;
+	color:#2D98F3;
+	font-size:larger;
+}
+
+.strong{
+	font-weight:bold;
+	color: limegreen;
+	font-size:larger;
+}
+
+</style>
+</head>
+<body>
+	
+	<div class="limiter">
+		<div class="container-login100" style="background-image: url('images/login_bg.jpg');">
+			<div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
+				<form class="login100-form validate-form" id="signupform" action="/signup" method="POST">
+					<span class="login100-form-title p-b-49">
+						SignUp
+					</span>
+
+					<div class="wrap-input100 validate-input m-b-23" data-validate = "First name is required">
+						<span class="label-input100">First Name</span>
+						<input class="input100" type="text" name="firstname" id="firstname" placeholder="Mary" required>
+						<span class="focus-input100" data-symbol="&#xf206;"></span>
+					</div>
+
+                    <div class="wrap-input100 validate-input m-b-23" data-validate = "Last name is required">
+						<span class="label-input100">Last Name</span>
+						<input class="input100" type="text" name="lastname" id="lastname" placeholder="Watson" required>
+						<span class="focus-input100" data-symbol="&#xf206;"></span>
+					</div>
+
+                    <div class="wrap-input100 validate-input m-b-23" data-validate = "Address is required">
+						<span class="label-input100">Address</span>
+						<input class="input100" type="text" name="address" id="address" placeholder="1234 Baker St, Apt #, Dallas, TX 70000, USA">
+						<span class="focus-input100" data-symbol="&#xf206;"></span>
+					</div>
+
+					<div class="wrap-input100 validate-input m-b-23" data-validate = "Email id is required">
+						<span class="label-input100">Email</span>
+						<input class="input100" type="email" name="email" id="email"  placeholder="abc@example.com" required>
+						<span class="focus-input100" data-symbol="&#xf206;"></span>
+					</div>
+
+                    <div class="wrap-input100 validate-input m-b-23" data-validate = "Contact is required">
+						<span class="label-input100">Contact</span>
+						<input class="input100" type="number" name="contact" id="contact"  placeholder="+1 (444) - 555 - 6666">
+						<span class="focus-input100" data-symbol="&#xf206;"></span>
+					</div>
+
+					<div class="wrap-input100 validate-input" data-validate="Password is required">
+						<span class="label-input100">Password</span>
+						<input class="input100" type="password" name="password" id="password" placeholder="Type your password" required>
+						<span class="focus-input100" data-symbol="&#xf190;"></span>
+					</div>
+					<span id="result"></span>
+					<br>
+					<div class="container-login100-form-btn">
+						<div class="wrap-login100-form-btn">
+							<div class="login100-form-bgbtn"></div>
+							<button id="signupbtn" name="signupbtn" class="login100-form-btn">
+								Sign Up
+							</button>
+						</div>
+					</div>
+					
+				
+				</form>
+			</div>
+		</div>
+	</div>
+	
+
+	<div id="dropDownSelect1"></div>
+	
+<!--===============================================================================================-->
+	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/animsition/js/animsition.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/bootstrap/js/popper.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/daterangepicker/moment.min.js"></script>
+	<script src="vendor/daterangepicker/daterangepicker.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/countdowntime/countdowntime.js"></script>
+<!--===============================================================================================-->
+
+	<script type="text/javascript">
+	$(document).ready(function(){
+	$('#signupbtn').prop('disabled', true);
+	var fnameflag = false, lnameflag = false, addressflag = true, emailflag = false, contactflag = true, passwordflag = false;
+	var emailfield = document.getElementById('email');
+	var span1 = document.createElement("span");
+	span1.id = "emailerror"
+	emailfield.parentNode.appendChild(span1);
+	$('#email').blur(function(){
+		var emailip = $('#email').val();
+	if(emailip != ''){
+		$.ajax({
+		url: "/checkemail",
+		method: "POST",
+		data: {email:emailip},
+		success: function(data){
+			if(data == 'Fail')
+			{
+				span1.innerHTML = "Error";
+				span1.className = "error";
+			}
+			else
+			{
+				if($('#emailerror').find())
+				{
+					$('#emailerror').remove();
+				}
+			}
+		}
+		});
+	}
+	else{
+		span1.innerHTML = "Email cannot be empty";
+		span1.className = "error";
+	}
+	});
+
+	
+	function validateForm(ele)
+	{
+			if($(ele).val() === '')
+			{
+				return false;
+			}
+		return true;
+	}
+
+	$("#firstname").keyup(function()
+	{
+		if(!validateForm(this))
+		{
+			//console.log("Error in firstname");
+			if(!$("#ferror").length)
+			{
+				var fnamefield = document.getElementById('firstname');
+				var span1 = document.createElement("span");
+				fnamefield.parentNode.appendChild(span1);
+				span1.innerHTML = "First Name cannot be empty";
+				span1.className = "error";
+				span1.id = "ferror";
+			}
+		}
+		else
+		{
+			fnameflag = true;
+			if($("#ferror").length)
+			{
+				$("#ferror").remove();
+			}
+			if(fnameflag && lnameflag && emailflag && contactflag && addressflag && passwordflag)
+			{
+				$('#signupbtn').prop('disabled', true);
+			}
+			else
+			{
+				$('#signupbtn').prop('disabled', false);
+			}
+		}
+	});
+
+	$("#lastname").keyup(function()
+	{
+		if(!validateForm(this))
+		{
+			console.log("Error in Lastname");
+			//console.log("Error in firstname");
+			if(!$("#lerror").length)
+			{
+				var lnamefield = document.getElementById('lastname');
+				var span1 = document.createElement("span");
+				lnamefield.parentNode.appendChild(span1);
+				span1.innerHTML = "Last Name cannot be empty";
+				span1.className = "error";
+				span1.id = "lerror";
+			}
+		}
+		else
+		{
+			lnameflag = true;
+			if($("#lerror").length)
+			{
+				$("#lerror").remove();
+			}
+			if(fnameflag && lnameflag && emailflag && contactflag && addressflag && passwordflag)
+			{
+				$('#signupbtn').prop('disabled', true);
+			}
+			else
+			{
+				$('#signupbtn').prop('disabled', false);
+			}
+		}
+	});
+
+	
+	$('#password').keyup(function(){
+		$('#result').html(checkStrength($('#password').val()))
+	});
+
+	function checkStrength(password) {
+		var strength = 0
+		if (password.length < 6) 
+		{
+			$('#result').removeClass()
+			$('#result').addClass('short')
+			return 'Too short'
+		}
+		if (password.length > 7) strength += 1
+		if (password.match(/([a-z].*[A-Z])|([A-Z].*[a-z])/)) strength += 1
+		if (password.match(/([a-zA-Z])/) && password.match(/([0-9])/)) strength += 1
+		if (password.match(/([!,%,&,@,#,$,^,*,?,_,~])/)) strength += 1
+		if (password.match(/(.*[!,%,&,@,#,$,^,*,?,_,~].*[!,%,&,@,#,$,^,*,?,_,~])/)) strength += 1
+		if (strength < 4) 
+		{
+			$('#result').removeClass()
+			$('#result').addClass('weak')
+			return 'Weak'
+		} 
+		else if(strength == 4) 
+		{
+			$('#result').removeClass()
+			$('#result').addClass('good')
+			return 'Good'
+		} 
+		else
+		{
+			$('#result').removeClass()
+			$('#result').addClass('strong')
+			return 'Strong'
+		}
+	}
+
+	});
+
+
+
+	</script>
+
+</body>
+</html>

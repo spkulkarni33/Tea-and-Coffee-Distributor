@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Contact | Brewed Aromas</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Great+Vibes" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
+    <link rel="stylesheet" href="css/animate.css">
+    
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="css/magnific-popup.css">
+
+    <link rel="stylesheet" href="css/aos.css">
+
+    <link rel="stylesheet" href="css/ionicons.min.css">
+
+    <link rel="stylesheet" href="css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="css/jquery.timepicker.css">
+
+    
+    <link rel="stylesheet" href="css/flaticon.css">
+    <link rel="stylesheet" href="css/icomoon.css">
+    <link rel="stylesheet" href="css/style.css">
+	<link rel='icon' href="images/favicon.jfif" type='image/x-icon'>
+  </head>
+  <body>
+  	<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+	    <div class="container">
+	      <a class="navbar-brand" href="/home">BREWED<small>AROMAS</small></a>
+	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+	        <span class="oi oi-menu"></span> Menu
+	      </button>
+	      <div class="collapse navbar-collapse" id="ftco-nav">
+	        <ul class="navbar-nav ml-auto">
+	          <li class="nav-item"><a href="/home" class="nav-link">Home</a></li>
+	          <li class="nav-item"><a href="/tea?pagenum=1" class="nav-link">Tea</a></li>
+			  <li class="nav-item"><a href="/coffee?pagenum=1" class="nav-link">Coffee</a></li>			  
+	          <li class="nav-item active"><a href="/contact" class="nav-link">Contact</a></li>
+            <% if(user.firstname) { %>
+              <li class="nav-item"><a href="#" class="nav-link">Welcome, <%= user.firstname %></a></li>	
+              <li class="nav-item"><a href="/logout" class="nav-link">Logout</a></li>
+                  <li class="nav-item cart"><a href="/cart" class="nav-link"><span class="icon icon-shopping_cart"></span><span class="bag d-flex justify-content-center align-items-center"><small><%= user.cart_no %></small></span></a></li>
+                  
+                    <% } else { %>
+              <li class="nav-item"><a href="/loginpage" class="nav-link">Login</a></li>
+                  <li class="nav-item cart"><a href="/cart" class="nav-link"><span class="icon icon-shopping_cart"></span><span class="bag d-flex justify-content-center align-items-center"><small>0</small></span></a></li>
+      
+                  <% } %>
+	        </ul>
+	      </div>
+		  </div>
+	  </nav>
+    <!-- END nav -->
+
+    <section class="home-slider owl-carousel">
+      <div class="slider-item" style="background-image: url(images/bg_1.jpg);">
+      	<div class="overlay"></div>
+        <div class="container">
+          <div class="row slider-text justify-content-center align-items-center" data-scrollax-parent="true">
+
+            <div class="col-md-8 col-sm-12 text-center ftco-animate">
+            	<span class="subheading">Welcome</span>
+              <h1 class="mb-4">The Best Brew Tasting Experience</h1>
+              <p class="mb-4 mb-md-5">Finest blend characterized by an aromatic balanced taste.</p>
+             
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="slider-item" style="background-image: url(images/bg_2.jpg);">
+      	<div class="overlay"></div>
+        <div class="container">
+          <div class="row slider-text justify-content-center align-items-center" data-scrollax-parent="true">
+
+            <div class="col-md-8 col-sm-12 text-center ftco-animate">
+            	<span class="subheading">Welcome</span>
+              <h1 class="mb-4">Amazing Taste &amp; Blissful Aroma</h1>
+              <p class="mb-4 mb-md-5">One of the finest aromatic solution to every problem the day may bring.</p>
+             
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="slider-item" style="background-image: url(images/bg_3.jpg);">
+      	<div class="overlay"></div>
+        <div class="container">
+          <div class="row slider-text justify-content-center align-items-center" data-scrollax-parent="true">
+
+            <div class="col-md-8 col-sm-12 text-center ftco-animate">
+            	<span class="subheading">Welcome</span>
+              <h1 class="mb-4">Taste of Relaxation</h1>
+              <p class="mb-4 mb-md-5">Treat yourself to a relaxing cup and use the time as a stress reliever.</p>
+             
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+     <section class="ftco-section ftco-services">
+    	<div class="container">
+    		<div class="row">
+          <div class="col-md-4 ftco-animate">
+            <div class="media d-block text-center block-6 services">
+              <i class="fa fa-phone" style="font-size:40px"></i><br>
+              <div class="media-body">
+                <h3 class="heading">+1(469)9829-210</h3>
+              </div>
+            </div>      
+          </div>
+          <div class="col-md-4 ftco-animate">
+            <div class="media d-block text-center block-6 services">
+              <i class="fa fa-envelope" style="font-size:40px"></i><br>
+              <div class="media-body">
+                <h3 class="heading">info@brewedaromas.com</h3>
+                
+              </div>
+            </div>      
+          </div>
+          <div class="col-md-4 ftco-animate">
+            <div class="media d-block text-center block-6 services">
+              <i class="fa fa-building" style="font-size:40px"></i><br>
+              <div class="media-body">
+                <h3 class="heading">800 W Campbell Rd, Suite 777, Richardson, Texas, USA</h3>
+                
+              </div>
+            </div>    
+          </div>
+        </div>
+    	</div>
+    </section>
+
+  <!-- loader -->
+  <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
+
+
+  <script src="js/jquery.min.js"></script>
+  <script src="js/jquery-migrate-3.0.1.min.js"></script>
+  <script src="js/popper.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/jquery.easing.1.3.js"></script>
+  <script src="js/jquery.waypoints.min.js"></script>
+  <script src="js/jquery.stellar.min.js"></script>
+  <script src="js/owl.carousel.min.js"></script>
+  <script src="js/jquery.magnific-popup.min.js"></script>
+  <script src="js/aos.js"></script>
+  <script src="js/jquery.animateNumber.min.js"></script>
+  <script src="js/bootstrap-datepicker.js"></script>
+  <script src="js/jquery.timepicker.min.js"></script>
+  <script src="js/scrollax.min.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+  <script src="js/google-map.js"></script>
+  <script src="js/main.js"></script>
+    
+  </body>
+</html>

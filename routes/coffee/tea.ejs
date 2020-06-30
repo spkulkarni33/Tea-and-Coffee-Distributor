@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Tea | Brewed Aromas</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Great+Vibes" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
+    <link rel="stylesheet" href="css/animate.css">
+    
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="css/magnific-popup.css">
+
+    <link rel="stylesheet" href="css/aos.css">
+    <link rel="stylesheet" href="css/teafilter.css">
+
+    <link rel="stylesheet" href="css/ionicons.min.css">
+
+    <link rel="stylesheet" href="css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="css/jquery.timepicker.css">
+
+    
+    <link rel="stylesheet" href="css/flaticon.css">
+    <link rel="stylesheet" href="css/icomoon.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel='icon' href="images/favicon.jfif" type='image/x-icon'>
+  
+
+  </head>
+  <body>
+  	<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+	    <div class="container">
+	      <a class="navbar-brand" href="/home">BREWED<small>AROMAS</small></a>
+	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+	        <span class="oi oi-menu"></span> Menu
+	      </button>
+	      <div class="collapse navbar-collapse" id="ftco-nav">
+	        <ul class="navbar-nav ml-auto">
+	          <li class="nav-item"><a href="/home" class="nav-link">Home</a></li>
+	          <li class="nav-item active"><a href="/tea?pagenum=1" class="nav-link">Tea</a></li>
+			  <li class="nav-item"><a href="/coffee?pagenum=1" class="nav-link">Coffee</a></li>			  
+            <li class="nav-item"><a href="/contact" class="nav-link">Contact</a></li>
+            <% if(user.firstname) { %>
+        <li class="nav-item"><a href="#" class="nav-link">Welcome, <%= user.firstname %></a></li>	
+        <li class="nav-item"><a href="/logout" class="nav-link">Logout</a></li>
+            <li class="nav-item cart"><a href="/cart" class="nav-link"><span class="icon icon-shopping_cart"></span><span class="bag d-flex justify-content-center align-items-center"><small><%= user.cart_no %></small></span></a></li>
+            
+              <% } else { %>
+        <li class="nav-item"><a href="/loginpage" class="nav-link">Login</a></li>
+            <li class="nav-item cart"><a href="/cart" class="nav-link"><span class="icon icon-shopping_cart"></span><span class="bag d-flex justify-content-center align-items-center"><small>0</small></span></a></li>
+
+            <% } %>
+
+	        </ul>
+	      </div>
+		  </div>
+	  </nav>
+    <!-- END nav -->
+
+<section class="ftco-section">
+    	<div class="container">
+			<div class="row justify-content-center mb-5 pb-3">
+				<div class="col-md-7 heading-section ftco-animate text-center">
+					<span class="subheading">Tea</span>
+          <h2 class="mb-4">Choose your flavor...</h2>
+          <% if(user.firstname === 'admin'){ %>
+          <a href="/addform?q=teas" class="btn btn-primary">Add New Tea</a>
+          <% } %>
+        </div>
+      </div>
+      
+      <div class="s003">
+        <form action="/filtertea" method="POST">
+          <div class="inner-form">
+            <div class="input-field first-wrap">
+              <div class="input-select">
+                <select data-trigger="" name="searchteatype">
+                  <option value="" placeholder="">CHOOSE TEA TYPE</option>
+                  <option value="Black tea">BLACK</option>
+                  <option value="Herbal tea">HERBAL</option>
+                  <option value="Green tea">GREEN</option>
+                </select>
+              </div>
+            </div>
+            <div class="input-field second-wrap">
+              <input id="search" name="searchteaname" type="text" placeholder="Enter tea name" />
+            </div>
+            <div class="input-field third-wrap">
+              <button class="btn-search" id="searchteabtn" type="submit"><i class="fa fa-search"></i></button>
+               
+              </button>
+            </div>
+          </form>
+          </div>
+      </div>
+      
+
+    <br><br>
+    <h3>Page <%= page_num %> of <%= pages %></h3>
+      <h3>Displaying <%= teas.length %> results</h3>
+			<div class="row">
+        <% teas.forEach(function(tea){ %>
+          <% if(tea.softdelete === '0'){ %>
+				<div class="col-md-3">
+					<div class="menu-entry">
+					<a href="#" class="img" style="background-image: url(images/<%= tea.image %>)"></a>
+							<div class="text text-center pt-4">
+                <p><%= tea.type %></p>
+                <h3><a href="#"><%= tea.bname %></a></h3>
+								<p><%= tea.description %></p>
+                <p class="price"><span>$<%= tea.price %></span></p>
+                <form action="/addtocart?q=add" method="POST">
+                  <input type="hidden" name="dbname" value="teas">
+                <input type="hidden" name="product_id" id="product_id" value="<%= tea._id %>">
+                <input type="hidden" name="product_price" id="product_price" value="<%= tea.price %>">
+                <input type="hidden" name="stock" id="stock" value="<%= tea.stock %>">
+                <% if (tea.stock > 0){ %>
+                <button type="submit" class="btn btn-primary">Add to Cart</button>
+                
+                <% } else { %>
+                  <button type="submit" class="btn btn-primary" disabled>Out of Stock</button>
+                  <% } %>
+                  <% if (user.firstname === 'admin'){ %>
+                    <a href="/delete?q=teas&id=<%= tea._id %>" class="btn btn-primary">Remove Item</a>
+                    <% } %>
+                </form>
+							</div>
+					</div>
+				</div>
+        <% } %>
+				<% }); %>
+			</div>
+    	</div>
+    </section>
+
+
+    <div class="container">
+      <nav aria-label="...">
+      <ul class="pagination justify-content-center">
+        <% for (var i =1; i <= parseInt(pages);  i++ ) { %>
+          <li class="page-item">
+            <a class="page-link" href="/tea?pagenum=<%= i %> "> <%= i %> </a>
+          </li>
+          
+          <% } %>
+          
+
+  </ul>
+</nav>
+</div>
+
+
+  <!-- loader -->
+  <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
+
+
+  <script src="js/jquery.min.js"></script>
+  <script src="js/jquery-migrate-3.0.1.min.js"></script>
+  <script src="js/popper.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/jquery.easing.1.3.js"></script>
+  <script src="js/jquery.waypoints.min.js"></script>
+  <script src="js/jquery.stellar.min.js"></script>
+  <script src="js/owl.carousel.min.js"></script>
+  <script src="js/jquery.magnific-popup.min.js"></script>
+  <script src="js/aos.js"></script>
+  <script src="js/jquery.animateNumber.min.js"></script>
+  <script src="js/bootstrap-datepicker.js"></script>
+  <script src="js/jquery.timepicker.min.js"></script>
+  <script src="js/scrollax.min.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/extention/choices.js"></script>
+  <script>
+    const choices = new Choices('[data-trigger]',
+    {
+      searchEnabled: false,
+      itemSelectText: '',
+    });
+
+  </script>
+  
+
+  </body>
+</html>
